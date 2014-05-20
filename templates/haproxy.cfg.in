@@ -1,0 +1,33 @@
+global
+        daemon
+        log 127.0.0.1   local7  debug
+        maxconn  ${haproxy-config:maxconn}
+        user     ${haproxy-config:user}
+        group    ${haproxy-config:group}
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        retries 3
+        option  redispatch
+        timeout connect 30s
+        timeout client 50s
+        timeout server 50s
+
+frontend http
+    bind ${haproxy-config:address}
+    default_backend zopes
+
+backend zopes
+        option httpchk
+        option forwardfor
+        balance leastconn
+        stats enable
+        stats uri /haproxy-status
+        stats refresh 5s
+        cookie serverid insert indirect nocache
+        server instance1 ${instance1:http-address} check inter 10s fastinter 1s fall 2 maxconn ${instance1:zserver-threads} slowstart 120000 on-error mark-down error-limit 5
+        server instance2 ${instance2:http-address} check inter 10s fastinter 1s fall 2 maxconn ${instance2:zserver-threads} slowstart 120000 on-error mark-down error-limit 5
+        

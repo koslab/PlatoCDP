@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+import subprocess, os, sys, re
+from zest.releaser.vcs import BaseVersionControl
+from zest.releaser import utils
+import shutil
+from ConfigParser import ConfigParser
+from StringIO import StringIO
+
+autorelease = '''${auto-release}'''
+releaser = 'fullrelease'
+
+packages = [i.strip() for i in autorelease.split('\n') if i.strip()]
+
+directory = '${buildout:directory}'
+sourcesdir = '${buildout:sources-dir}'
+
+versions = {}
+for package in packages:
+    os.chdir('%s/%s/%s' % (directory, sourcesdir, package))
+    p = subprocess.Popen(['git','log','-1'], stdout=subprocess.PIPE)
+    retval = p.wait()
+    out = p.stdout.read()
+    if 'Back to development:' in out:
+        print "Skipping %s" % package
+        p = subprocess.Popen(['git','log','-2','--skip=1'], stdout=subprocess.PIPE)
+        retval = p.wait()
+        out = p.stdout.read()
+        match = None
+        for line in out.split('\n'):
+            match = re.match('.*Preparing release (.*?)$', line)
+            if match:
+                versions[package] = match.group(1)
+                break;
+        continue
+
+    print "Releasing %s" % package
+    os.system('git log | head -n 50')
+    releaseme = raw_input('Release %s? (y/N/abort)' % package)
+    if releaseme.lower().strip() == 'y':
+        versions[package] = utils.cleanup_version(
+            BaseVersionControl()._extract_version()
+        )
+        os.system(releaser)
+    elif releaseme.lower().strip().startswith('a'):
+        sys.exit(1)
+
+versionfile = '${buildout:directory}/releaseversions.cfg'
+oldversionfile = '${buildout:directory}/releaseversions.cfg.old'
+
+config = ConfigParser()
+if os.path.exists(versionfile):
+    config.readfp(open(versionfile))
+    shutil.move(versionfile, oldversionfile)
+
+if not config.has_section('versions'):
+    config.add_section('versions')
+
+for key, version in versions.items():
+    config.set('versions', key, version)
+
+stream = StringIO()
+config.write(stream)
+
+result = stream.getvalue()
+open(versionfile, 'w').write(result)
+print result
