@@ -13,6 +13,9 @@ zeoserver-address = 127.0.0.1:8100
 haproxy-host = 127.0.0.1
 haproxy-port = 8080
 
+varnish-host = 0.0.0.0
+varnish-port = 80
+
 haproxy-user = ${site:effective-user}
 haproxy-group = haproxy
 
