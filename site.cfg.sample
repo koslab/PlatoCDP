@@ -1,6 +1,6 @@
 [site]
 
-effective-user = 
+effective-user = platocdp
 
 instance1-host = 127.0.0.1
 instance1-port = 8081
@@ -17,3 +17,13 @@ haproxy-user = ${site:effective-user}
 haproxy-group = haproxy
 
 zodb-cache-size=5000
+
+service-zcml-conf=
+
+instanceworker1-host = 127.0.0.1
+instanceworker1-port = 8083
+
+
+[secrets]
+munin-secret = 1kh1u3123!@!!@3%^&
+
