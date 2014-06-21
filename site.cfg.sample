@@ -1,6 +1,6 @@
 [site]
 
-effective-user = platocdp
+effective-user = plone
 
 instance1-host = 127.0.0.1
 instance1-port = 8081
@@ -26,6 +26,8 @@ service-zcml-conf=
 instanceworker1-host = 127.0.0.1
 instanceworker1-port = 8083
 
+zrs-host = 0.0.0.0
+zrs-port = 5100
 
 [secrets]
 munin-secret = 1kh1u3123!@!!@3%^&

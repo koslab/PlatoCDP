@@ -1,0 +1,4 @@
+[site]
+effective-user = plone
+zrs-source-host = 127.0.0.1
+zrs-source-port = 5100
