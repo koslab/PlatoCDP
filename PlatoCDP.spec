@@ -220,6 +220,7 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %defattr(-, plone, plone, -)
 %{_var}/lib/%{name}
 %{_var}/cache/%{name}
+%{_var}/log/%{name}
 
 %files ZRS
 %defattr(-, plone, plone, -)
