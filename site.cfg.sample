@@ -7,6 +7,7 @@ effective-user = plone
 
 data-directory = /var/lib/PlatoCDP/data/
 log-directory = /var/log/PlatoCDP/
+backup-directory = /var/lib/PlatoCDP/backups/
 # turn this off for remote ZEO server
 shared-blob = on
 

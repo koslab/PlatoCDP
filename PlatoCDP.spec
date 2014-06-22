@@ -72,6 +72,12 @@ rm site.cfg
 mkdir -p %{buildroot}/%{_bindir}/
 mkdir -p %{buildroot}/%{_var}/lib/%{name}/eggs/
 mkdir -p %{buildroot}/%{_var}/lib/%{name}/data/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/backups/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/zrs/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/zrs/data/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/zrs/data/filestorage/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/zrs/data/blobstorage/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/zrs/backups/
 mkdir -p %{buildroot}/%{_var}/cache/%{name}/
 mkdir -p %{buildroot}/%{_var}/www/%{name}/
 mkdir -p %{buildroot}/%{_sysconfdir}/init.d/

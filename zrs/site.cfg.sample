@@ -8,3 +8,4 @@ log-directory = /var/log/PlatoCDP/
 [addresses]
 zrs-source-host = 127.0.0.1
 zrs-source-port = 5100
+zrsreplicator-address = 127.0.0.1:8101
