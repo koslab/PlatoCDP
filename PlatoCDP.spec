@@ -260,7 +260,7 @@ chkconfig --del platocdp >/dev/null 2>&1 || :
 chkconfig --del platocdp-zrs >/dev/null 2>&1 || :
 
 %postun libs 
-userdel plone
+userdel plone >/dev/null 2>&1 || :
 
 %changelog
 
