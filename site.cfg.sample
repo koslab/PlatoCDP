@@ -1,6 +1,14 @@
-[site]
+[config]
+
+zodb-cache-size=5000
+zserver-threads = 4
 
 effective-user = plone
+
+# turn this off for remote ZEO server
+shared-blob = on
+
+[addresses]
 
 instance1-host = 127.0.0.1
 instance1-port = 8081
@@ -13,13 +21,6 @@ zeoserver-address = 127.0.0.1:8100
 haproxy-host = 127.0.0.1
 haproxy-port = 8080
 
-haproxy-user = ${site:effective-user}
-haproxy-group = haproxy
-
-zodb-cache-size=5000
-
-service-zcml-conf=
-
 instanceworker1-host = 127.0.0.1
 instanceworker1-port = 8083
 
@@ -28,4 +29,7 @@ zrs-port = 5100
 
 [secrets]
 munin-secret = @@@!!!CHANGETHIS!!!@@@
+default-username = admin
+default-password = admin
+
 

@@ -2,8 +2,8 @@ global
         daemon
         log 127.0.0.1   local7  debug
         maxconn  ${haproxy-config:maxconn}
-        user     ${haproxy-config:user}
-        group    ${haproxy-config:group}
+        user     haproxy
+        group    haproxy
 
 defaults
         log     global
