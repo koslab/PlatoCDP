@@ -13,9 +13,6 @@ zeoserver-address = 127.0.0.1:8100
 haproxy-host = 127.0.0.1
 haproxy-port = 8080
 
-varnish-host = 0.0.0.0
-varnish-port = 80
-
 haproxy-user = ${site:effective-user}
 haproxy-group = haproxy
 
@@ -30,5 +27,5 @@ zrs-host = 0.0.0.0
 zrs-port = 5100
 
 [secrets]
-munin-secret = 1kh1u3123!@!!@3%^&
+munin-secret = $$$@@!!changethis!!@@$$$
 

@@ -55,7 +55,8 @@ sub vcl_fetch {
     if (beresp.http.X-Theme-Disabled) {
         set beresp.http.X-Varnish-Action = "FETCH (pass - not cacheable, X-Theme-Disabled)";
         call rewrite_s_maxage;
-        return(hit_for_pass);
+        return(pass);
+        # return(hit_for_pass); # For Varnish 3
     }
 
     if (beresp.http.Set-Cookie) {
