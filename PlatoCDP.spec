@@ -150,10 +150,32 @@ case "\$1" in
        echo "Stopping ZEO server"
        %{_var}/www/%{name}/bin/zeoserver stop
    ;;
+   restart)
+       echo "Stopping instanceworker 1"
+       %{_var}/www/%{name}/bin/instanceworker1 stop
+       echo "Stopping instance 2"
+       %{_var}/www/%{name}/bin/instance2 stop
+       echo "Stopping instance 1"
+       %{_var}/www/%{name}/bin/instance1 stop
+       echo "Stopping ZEO server"
+       %{_var}/www/%{name}/bin/zeoserver stop
+       echo "Starting ZEO server"
+       %{_var}/www/%{name}/bin/zeoserver start
+       echo "Starting instance 1"
+       %{_var}/www/%{name}/bin/instance1 start
+       echo "Starting instance 2"
+       %{_var}/www/%{name}/bin/instance2 start
+       echo "Starting instanceworker 1"
+       %{_var}/www/%{name}/bin/instanceworker1 start
+   ;;
    status)
+       echo "Status of ZEO server"
        %{_var}/www/%{name}/bin/zeoserver status
+       echo "Status of instance 1"
        %{_var}/www/%{name}/bin/instance1 status
+       echo "Status of instance 2"
        %{_var}/www/%{name}/bin/instance2 status
+       echo "Status of instanceworker 1"
        %{_var}/www/%{name}/bin/instanceworker1 status
    ;;
 esac
