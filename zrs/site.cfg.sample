@@ -1,6 +1,8 @@
 [config]
 effective-user = plone
 
+data-directory = /var/lib/PlatoCDP/zrs/
+
 [addresses]
 zrs-source-host = 127.0.0.1
 zrs-source-port = 5100

@@ -67,14 +67,15 @@ rm site.cfg
 
 # create directories
 mkdir -p %{buildroot}/%{_bindir}/
-mkdir -p %{buildroot}/%{_var}/lib/%{name}/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/eggs/
+mkdir -p %{buildroot}/%{_var}/lib/%{name}/data/
 mkdir -p %{buildroot}/%{_var}/cache/%{name}/
 mkdir -p %{buildroot}/%{_var}/www/%{name}/
 mkdir -p %{buildroot}/%{_sysconfdir}/init.d/
 mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/
 
 # copy built eggs
-cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/
+cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/eggs/
 
 # create deployment buildout 
 rm -f %{buildroot}/%{_datadir}/%{name}/template/site.cfg
@@ -88,7 +89,7 @@ mkdir -p %{buildroot}/%{_var}/lib/%{name}/.buildout/
 cat << EOF > %{buildroot}/%{_var}/lib/%{name}/.buildout/default.cfg 
 [buildout]
 download-cache = %{_var}/cache/%{name}/
-eggs-directory = %{_var}/lib/%{name}/
+eggs-directory = %{_var}/lib/%{name}/eggs/
 extends-cache = %{_var}/cache/%{name}/
 EOF
 
