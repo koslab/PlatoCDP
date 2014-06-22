@@ -27,5 +27,5 @@ zrs-host = 0.0.0.0
 zrs-port = 5100
 
 [secrets]
-munin-secret = $$$@@!!changethis!!@@$$$
+munin-secret = @@@!!!CHANGETHIS!!!@@@
 
