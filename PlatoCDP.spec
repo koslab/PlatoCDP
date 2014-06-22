@@ -16,7 +16,9 @@ BuildRequires:  gcc gcc-c++ libxslt-devel libxml2-devel
 BuildRequires:  libjpeg-turbo-devel libpng-devel zlib-devel bzip2-devel tk-devel
 BuildRequires:  freetype-devel rubygems ghostscript wget openldap-devel
 Requires:       %{name}-libs
-
+Requires:       libreoffice-headless libreoffice-impress libreoffice-writer libreoffice-calc
+Requires:       libreoffice-draw rubygem-docsplit=0.7.5
+Requires:       GraphicsMagick poppler-utils haproxy varnish ghostscript=8.71
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
@@ -27,8 +29,6 @@ A Plone distribution for intranet use-cases
 
 Summary: Libraries and eggs for PlatoCDP
 Group:  System Environment/Libraries
-Requires: libjpeg-turbo libpng zlib bzip2 
-Requires: GraphicsMagick poppler-utils haproxy varnish ghostscript
 Requires(pre): shadow-utils glibc-common
 Requires(postun): shadow-utils
 
