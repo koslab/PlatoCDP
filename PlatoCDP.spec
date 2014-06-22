@@ -59,7 +59,7 @@ cp -r * %{buildroot}/%{_datadir}/%{name}/template/
 virtualenv --no-site-packages .
 wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
 ./bin/python bootstrap.py
-cat site.cfg.sample | sed 's|/var/lib/PlatoCDP/data|`pwd`/var' >  site.cfg 
+cat site.cfg.sample | sed 's|/var/lib/PlatoCDP/data|`pwd`/var|g' >  site.cfg 
 ./bin/buildout -vvvv -c deployment.cfg
 rm site.cfg
 
