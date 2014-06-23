@@ -42,7 +42,7 @@ Precompiled libraries and eggs for PlatoCDP
 
 Summary: Replication service for PlatoCDP
 Group: Applications/Databases
-Requires: %{name}-libs
+Requires: %{name}-libs rsync
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
