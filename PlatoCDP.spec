@@ -2,7 +2,7 @@
 # QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb PlatoCDP.spec
 
 Name:		PlatoCDP
-Version:	4.0a1
+Version:	4.0b1
 Release:	1%{?dist}
 Summary:	A Plone distribution for intranet use-cases
 
