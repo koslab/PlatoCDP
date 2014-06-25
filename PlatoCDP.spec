@@ -21,6 +21,7 @@ Requires:       libreoffice-draw
 Requires:       GraphicsMagick poppler-utils haproxy varnish 
 Requires:       ghostscript = 8.71
 Requires:       rubygem-docsplit = 0.7.5
+Requires:       python-virtualenv
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
@@ -42,7 +43,7 @@ Precompiled libraries and eggs for PlatoCDP
 
 Summary: Replication service for PlatoCDP
 Group: Applications/Databases
-Requires: %{name}-libs rsync
+Requires: %{name}-libs rsync python-virtualenv
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
