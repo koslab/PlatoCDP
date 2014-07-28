@@ -11,6 +11,8 @@ backup-directory = /var/lib/PlatoCDP/backups/
 # turn this off for remote ZEO server
 shared-blob = on
 
+timezone = Asia/Kuala_Lumpur
+
 [addresses]
 
 instance1-host = 127.0.0.1
