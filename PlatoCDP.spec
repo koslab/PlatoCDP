@@ -21,7 +21,7 @@ Requires:       libreoffice-draw
 Requires:       GraphicsMagick poppler-utils haproxy varnish 
 Requires:       ghostscript = 8.71
 Requires:       rubygem-docsplit = 0.7.5
-Requires:       python-virtualenv
+Requires:       python-virtualenv wv
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
