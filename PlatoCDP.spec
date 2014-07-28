@@ -163,7 +163,7 @@ cp %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg.sample %{buildroot}/%{_sysconfd
 rm -f %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg
 ln -s %{_sysconfdir}/%{name}/zrs.cfg %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg 
 
-sed 's|@@BUILDOUT_ROOT@@|%{_var}/www/%{name}|g' scripts/platocdp-zrs.sh > %{buildroot}/%{_bindir}/platocdp-zrs
+sed 's|@@BUILDOUT_ROOT@@|%{_var}/www/%{name}-zrs|g' scripts/platocdp-zrs.sh > %{buildroot}/%{_bindir}/platocdp-zrs
 
 cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp-zrs
 #! /bin/bash

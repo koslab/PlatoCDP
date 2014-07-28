@@ -11,7 +11,9 @@ fi
 case "$1" in 
    rebuild)
         cd $BUILDOUT_ROOT
-        sudo -u plone virtualenv venv
+        if [ ! -e ./venv/bin/python ];then
+            sudo -u plone virtualenv venv
+        fi
         sudo -u plone wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py -o /dev/null
         sudo -u plone ./venv/bin/python bootstrap.py
         sudo -u plone ./bin/buildout -c buildout.cfg
