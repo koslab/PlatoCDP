@@ -1,9 +1,9 @@
 [config]
 effective-user = plone
 
-data-directory = /var/lib/PlatoCDP/zrs/data/
-backup-directory = /var/lib/PlatoCDP/zrs/backups/
-log-directory = /var/log/PlatoCDP/
+data-directory = /var/lib/platocdp/zrs/data/
+backup-directory = /var/lib/platocdp/zrs/backups/
+log-directory = /var/log/platocdp/
 
 [addresses]
 zrs-source-host = 127.0.0.1

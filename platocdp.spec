@@ -1,5 +1,5 @@
 # How to build it
-# QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb PlatoCDP.spec
+# QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb platcdp.spec
 
 Name:		platocdp
 Version:	4.0b1
@@ -69,8 +69,8 @@ cp -r * %{buildroot}/%{_datadir}/%{name}/template/
 virtualenv --no-site-packages .
 wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
 ./bin/python bootstrap.py
-cat site.cfg.sample | sed 's|/var/lib/PlatoCDP/data|`pwd`/var|g' \
-    | sed 's|/var/log/PlatoCDP/|`pwd`/var/log|' >  site.cfg 
+cat site.cfg.sample | sed 's|/var/lib/platocdp/data|`pwd`/var|g' \
+    | sed 's|/var/log/platocdp/|`pwd`/var/log|' >  site.cfg 
 
 cat << EOF > build.cfg
 [buildout]

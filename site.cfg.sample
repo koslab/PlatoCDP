@@ -5,9 +5,9 @@ zserver-threads = 4
 
 effective-user = plone
 
-data-directory = /var/lib/PlatoCDP/data/
-log-directory = /var/log/PlatoCDP/
-backup-directory = /var/lib/PlatoCDP/backups/
+data-directory = /var/lib/platocdp/data/
+log-directory = /var/log/platocdp/
+backup-directory = /var/lib/platocdp/backups/
 # turn this off for remote ZEO server
 shared-blob = on
 
