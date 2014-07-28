@@ -35,13 +35,16 @@ Group:  System Environment/Libraries
 Requires(pre): shadow-utils glibc-common
 Requires(postun): shadow-utils
 
+%description libs
+Precompiled libraries and eggs for PlatoCDP
+
 %package eggbasket
 
 Summary: Downloaded source tarballs used by PlatoCDP
 Group: System Environment/Libraries
 
-%description libs
-Precompiled libraries and eggs for PlatoCDP
+%description eggbasket
+Source tarballs and config files used for building PlatoCDP
 
 %package ZRS
 
