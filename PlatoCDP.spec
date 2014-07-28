@@ -1,7 +1,7 @@
 # How to build it
 # QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb PlatoCDP.spec
 
-Name:		PlatoCDP
+Name:		platocdp
 Version:	4.0b1
 Release:	1%{?dist}
 Summary:	A Plone distribution for intranet use-cases
@@ -46,7 +46,7 @@ Group: System Environment/Libraries
 %description eggbasket
 Source tarballs and config files used for building PlatoCDP
 
-%package ZRS
+%package zrs
 
 Summary: Replication service for PlatoCDP
 Group: Applications/Databases
@@ -55,7 +55,7 @@ Requires(post): chkconfig
 Requires(postun) : chkconfig
 
 
-%description ZRS
+%description zrs
 Provide a ZEO Replication Server to replicate existing ZEO database
 
 %prep
@@ -210,7 +210,7 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %defattr(-, plone, plone, -)
 %{_var}/cache/%{name}
 
-%files ZRS
+%files zrs
 %defattr(-, plone, plone, -)
 %{_var}/www/%{name}-zrs
 %attr(755, root, root) %{_sysconfdir}/init.d/platocdp-zrs
@@ -225,20 +225,20 @@ getent passwd plone >/dev/null || /usr/sbin/useradd -r -g plone -d %{_var}/lib/%
 getent group plone >/dev/null || /usr/sbin/groupadd -r plone
 getent passwd plone >/dev/null || /usr/sbin/useradd -r -g plone -d %{_var}/lib/%{name}/ -s /bin/false plone
 
-%pre ZRS
+%pre zrs
 getent group plone >/dev/null || /usr/sbin/groupadd -r plone
 getent passwd plone >/dev/null || /usr/sbin/useradd -r -g plone -d %{_var}/lib/%{name}/ -s /bin/false plone
 
 %post
 chkconfig --add platocdp
 
-%post ZRS
+%post zrs
 chkconfig --add platocdp-zrs
 
 %postun 
 chkconfig --del platocdp >/dev/null 2>&1 || :
 
-%postun ZRS
+%postun zrs
 chkconfig --del platocdp-zrs >/dev/null 2>&1 || :
 
 %postun libs 
