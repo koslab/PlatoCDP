@@ -35,6 +35,10 @@ Group:  System Environment/Libraries
 Requires(pre): shadow-utils glibc-common
 Requires(postun): shadow-utils
 
+%package eggbasket
+
+Summary: Downloaded source tarballs used by PlatoCDP
+Group: System Environment/Libraries
 
 %description libs
 Precompiled libraries and eggs for PlatoCDP
@@ -64,7 +68,16 @@ wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
 ./bin/python bootstrap.py
 cat site.cfg.sample | sed 's|/var/lib/PlatoCDP/data|`pwd`/var|g' \
     | sed 's|/var/log/PlatoCDP/|`pwd`/var/log|' >  site.cfg 
-./bin/buildout -vvvv -c deployment.cfg
+
+cat << EOF > build.cfg
+[buildout]
+extends=deployment.cfg
+eggs-directory=eggs
+download-cache=downloads
+extends-cache=downloads
+EOF
+
+./bin/buildout -vvvv -U -c build.cfg
 rm site.cfg
 
 %install
@@ -87,6 +100,9 @@ mkdir -p %{buildroot}/%{_var}/log/%{name}
 
 # copy built eggs
 cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/eggs/
+
+# copy tarballs
+cp -r downloads/* %{buildroot}/%{_var}/cache/%{name}
 
 # create deployment buildout 
 rm -f %{buildroot}/%{_datadir}/%{name}/template/site.cfg
@@ -184,8 +200,12 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %files libs
 %defattr(-, plone, plone, -)
 %{_var}/lib/%{name}
-%{_var}/cache/%{name}
+%dir %{_var}/cache/%{name}
 %{_var}/log/%{name}
+
+%files eggbasket
+%defattr(-, plone, plone, -)
+%{_var}/cache/%{name}
 
 %files ZRS
 %defattr(-, plone, plone, -)
