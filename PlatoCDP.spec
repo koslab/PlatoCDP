@@ -215,7 +215,7 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %{_var}/www/%{name}-zrs
 %attr(755, root, root) %{_sysconfdir}/init.d/platocdp-zrs
 %config %{_sysconfdir}/%{name}/zrs.cfg
-%attr(755, root, root) %{_bindir}/platocdp-zr
+%attr(755, root, root) %{_bindir}/platocdp-zrs
 
 %pre
 getent group plone >/dev/null || /usr/sbin/groupadd -r plone
