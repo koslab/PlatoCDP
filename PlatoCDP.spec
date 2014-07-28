@@ -79,7 +79,7 @@ eggs-directory=eggs
 download-cache=downloads
 extends-cache=downloads
 EOF
-
+mkdir downloads/
 ./bin/buildout -vvvv -U -c build.cfg
 rm site.cfg
 
