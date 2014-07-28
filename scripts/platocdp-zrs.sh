@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-BUILDOUT_ROOT=%%BUILDOUT_ROOT%%
+BUILDOUT_ROOT=@@BUILDOUT_ROOT@@
 
 if [ `whoami` != "root" ];then
    echo "This script have to be run as root"
