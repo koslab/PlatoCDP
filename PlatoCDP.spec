@@ -105,20 +105,8 @@ extends-cache = %{_var}/cache/%{name}/
 EOF
 
 # create buildscript
-cat << EOF > %{buildroot}/%{_bindir}/platocdp-rebuild
-#!/bin/bash
 
-if [ \`whoami\` != "root" ];then 
-   echo "This script have to be run as root"
-   exit
-fi
-
-cd %{_var}/www/%{name}
-sudo -u plone virtualenv venv
-sudo -u plone wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py -o /dev/null
-sudo -u plone ./venv/bin/python bootstrap.py
-sudo -u plone ./bin/buildout -c deployment.cfg
-EOF
+cp scripts/platocdp.sh %{buildroot}/%{_bindir}/platocdp
 
 cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp
 #! /bin/bash
@@ -132,52 +120,16 @@ cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp
 
 case "\$1" in 
    start)
-       echo "Starting ZEO server"
-       %{_var}/www/%{name}/bin/zeoserver start
-       echo "Starting instance 1"
-       %{_var}/www/%{name}/bin/instance1 start
-       echo "Starting instance 2"
-       %{_var}/www/%{name}/bin/instance2 start
-       echo "Starting instanceworker 1"
-       %{_var}/www/%{name}/bin/instanceworker1 start
+       %{_bindir}/platocdp start
    ;;
    stop)
-       echo "Stopping instanceworker 1"
-       %{_var}/www/%{name}/bin/instanceworker1 stop
-       echo "Stopping instance 2"
-       %{_var}/www/%{name}/bin/instance2 stop
-       echo "Stopping instance 1"
-       %{_var}/www/%{name}/bin/instance1 stop
-       echo "Stopping ZEO server"
-       %{_var}/www/%{name}/bin/zeoserver stop
+       %{_bindir}/platocdp stop
    ;;
    restart)
-       echo "Stopping instanceworker 1"
-       %{_var}/www/%{name}/bin/instanceworker1 stop
-       echo "Stopping instance 2"
-       %{_var}/www/%{name}/bin/instance2 stop
-       echo "Stopping instance 1"
-       %{_var}/www/%{name}/bin/instance1 stop
-       echo "Stopping ZEO server"
-       %{_var}/www/%{name}/bin/zeoserver stop
-       echo "Starting ZEO server"
-       %{_var}/www/%{name}/bin/zeoserver start
-       echo "Starting instance 1"
-       %{_var}/www/%{name}/bin/instance1 start
-       echo "Starting instance 2"
-       %{_var}/www/%{name}/bin/instance2 start
-       echo "Starting instanceworker 1"
-       %{_var}/www/%{name}/bin/instanceworker1 start
+       %{_bindir}/platocdp restart
    ;;
    status)
-       echo "Status of ZEO server"
-       %{_var}/www/%{name}/bin/zeoserver status
-       echo "Status of instance 1"
-       %{_var}/www/%{name}/bin/instance1 status
-       echo "Status of instance 2"
-       %{_var}/www/%{name}/bin/instance2 status
-       echo "Status of instanceworker 1"
-       %{_var}/www/%{name}/bin/instanceworker1 status
+       %{_bindir}/platocdp status
    ;;
 esac
 
@@ -192,21 +144,7 @@ cp %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg.sample %{buildroot}/%{_sysconfd
 rm -f %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg
 ln -s %{_sysconfdir}/%{name}/zrs.cfg %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg 
 
-# create buildscript
-cat << EOF > %{buildroot}/%{_bindir}/platocdp-zrs-rebuild
-#!/bin/bash
-
-if [ \`whoami\` != "root" ];then 
-   echo "This script have to be run as root"
-   exit
-fi
-
-cd %{_var}/www/%{name}-zrs
-sudo -u plone virtualenv venv
-sudo -u plone wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py -o /dev/null
-sudo -u plone ./venv/bin/python bootstrap.py
-sudo -u plone ./bin/buildout -c buildout.cfg
-EOF
+cp scripts/platocdp-zrs.sh %{buildroot}/%{_bindir}/platocdp-zrs
 
 cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp-zrs
 #! /bin/bash
@@ -220,15 +158,13 @@ cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp-zrs
 
 case "\$1" in 
    start)
-       echo "Starting ZEO Replication Service"
-       %{_var}/www/%{name}-zrs/bin/zrsreplicator start
+      %{_bindir}/platocdp-zrs start
    ;;
    stop)
-       echo "Stopping ZEO Replication Service"
-       %{_var}/www/%{name}-zrs/bin/zrsreplicator stop
+      %{_bindir}/platocdp-zrs stop
    ;;
    status)
-       %{_var}/www/%{name}-zrs/bin/zrsreplicator status
+       %{_bindir}/platocdp-zrs status
    ;;
 esac
 
@@ -241,7 +177,7 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %{_datadir}/%{name}/template
 %{_var}/www/%{name}
 %config %{_sysconfdir}/%{name}/platocdp.cfg
-%attr(755, root, root) %{_bindir}/platocdp-rebuild
+%attr(755, root, root) %{_bindir}/platocdp
 %attr(755, root, root) %{_sysconfdir}/init.d/platocdp
 
 
@@ -256,7 +192,7 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %{_var}/www/%{name}-zrs
 %attr(755, root, root) %{_sysconfdir}/init.d/platocdp-zrs
 %config %{_sysconfdir}/%{name}/zrs.cfg
-%attr(755, root, root) %{_bindir}/platocdp-zrs-rebuild
+%attr(755, root, root) %{_bindir}/platocdp-zr
 
 %pre
 getent group plone >/dev/null || /usr/sbin/groupadd -r plone
