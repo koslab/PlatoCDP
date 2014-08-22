@@ -8,6 +8,7 @@ effective-user = plone
 data-directory = /var/lib/platocdp/data/
 log-directory = /var/log/platocdp/
 backup-directory = /var/lib/platocdp/backups/
+eggs-directory = /var/lib/platocdp/eggs
 # turn this off for remote ZEO server
 shared-blob = on
 
