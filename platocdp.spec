@@ -62,9 +62,6 @@ Provide a ZEO Replication Server to replicate existing ZEO database
 %setup -q
 
 %build
-mkdir -p %{buildroot}/%{_datadir}/%{name}/template/
-cp -r * %{buildroot}/%{_datadir}/%{name}/template/
-
 # build eggs
 virtualenv --no-site-packages .
 wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
@@ -100,6 +97,11 @@ mkdir -p %{buildroot}/%{_var}/www/%{name}/
 mkdir -p %{buildroot}/%{_sysconfdir}/init.d/
 mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/
 mkdir -p %{buildroot}/%{_var}/log/%{name}
+mkdir -p %{buildroot}/%{_datadir}/%{name}/template/
+
+# copy sources
+tar xvf %{SOURCE0}
+cp -r %{name}-%{version}/* %{buildroot}/%{_datadir}/%{name}/template/
 
 # copy built eggs
 cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/eggs/
