@@ -2,8 +2,8 @@
 # QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb platcdp.spec
 
 Name:		platocdp
-Version:	4.0b1
-Release:	2%{?dist}
+Version:	4.3.4
+Release:	1%{?dist}
 Summary:	A Plone distribution for intranet use-cases
 
 Group:		Applications/Internet
@@ -245,4 +245,6 @@ chkconfig --del platocdp-zrs >/dev/null 2>&1 || :
 userdel plone >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 25 2014 Izhar Firdaus <izhar@kagesenshi.org> 4.3.4-1
+- update rebuild for plone 4.3.4
 
