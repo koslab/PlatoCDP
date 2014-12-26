@@ -21,7 +21,7 @@ Requires:       %{name}-libs
 Requires:       libreoffice-headless libreoffice-impress libreoffice-writer libreoffice-calc
 Requires:       libreoffice-draw 
 Requires:       GraphicsMagick poppler-utils haproxy varnish 
-Requires:       ghostscript = 8.71
+Requires:       ghostscript
 Requires:       rubygem-docsplit = 0.7.5
 Requires:       python-virtualenv wv
 Requires(post): chkconfig
@@ -107,6 +107,11 @@ cp -r %{name}-%{version}/* %{buildroot}/%{_datadir}/%{name}/template/
 
 # copy built eggs
 cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/eggs/
+
+# clean up paths
+find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|`pwd`/bin/python|/bin/python|g" '{}' ';'
+find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|/opt/local/bin/python2.4|/bin/python|g" '{}' ';'
+
 
 # copy tarballs
 cp -r downloads/* %{buildroot}/%{_var}/cache/%{name}
