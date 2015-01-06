@@ -1,4 +1,3 @@
-vcl 4.0;
 # VCL file optimized for plone.app.caching.  See vcl(7) for details
 
 # This is an example of a split view caching setup with another proxy
@@ -8,6 +7,7 @@ vcl 4.0;
 # zope instance or a load balancer serving multiple zeo clients).
 # To change this to support multiple backends, see the vcl man pages
 # for instructions.
+
 
 backend default {
     .host = "${varnish-config:backend-host}";
@@ -23,21 +23,18 @@ acl purge {
     "${varnish-config:backend-host}";
 }
 
-sub vcl_init {
-    new cluster = directors.round_robin();
-    cluster.add_backend(default);
-}
-
 sub vcl_recv {
-    set req.backend_hint = cluster.backend();
-
-    if (req.method == "PURGE") {
+    set req.grace = 120s;
+    set req.backend = default;
+    
+    if (req.request == "PURGE") {
         if (!client.ip ~ purge) {
-                return (synth(405, "Not allowed"));
+                error 405 "Not allowed.";
         }
-        return (purge);
+        purge_url(req.url);
+        error 200 "Purged";
     }
-    if (req.method != "GET" && req.method != "HEAD") {
+    if (req.request != "GET" && req.request != "HEAD") {
         # We only deal with GET and HEAD by default
         return(pass);
     }
@@ -45,53 +42,46 @@ sub vcl_recv {
     call clear_analytics_cookies;
     call normalize_accept_encoding;
     call annotate_request;
-    return(hash);
+    return(lookup);
 }
 
-sub vcl_backend_response {
-    set beresp.grace = 120s;
+sub vcl_fetch {
 
     if (!beresp.ttl > 0s) {
         set beresp.http.X-Varnish-Action = "FETCH (pass - not cacheable)";
-        set beresp.uncacheable = true;
-        return (deliver);
+        return(pass);
     }
 
     if (beresp.http.X-Theme-Disabled) {
         set beresp.http.X-Varnish-Action = "FETCH (pass - not cacheable, X-Theme-Disabled)";
         call rewrite_s_maxage;
-        set beresp.uncacheable = true;
-        return (deliver);
+        return(pass);
+        # return(hit_for_pass); # For Varnish 3
     }
 
     if (beresp.http.Set-Cookie) {
         set beresp.http.X-Varnish-Action = "FETCH (pass - response sets cookie)";
         call rewrite_s_maxage;
-        set beresp.uncacheable = true;
-        return (deliver);
+        return(pass);
     }
     if (!beresp.http.Cache-Control ~ "s-maxage=[1-9]" && beresp.http.Cache-Control ~ "(private|no-cache|no-store)") {
         set beresp.http.X-Varnish-Action = "FETCH (pass - response sets private/no-cache/no-store token)";
         call rewrite_s_maxage;
-        set beresp.uncacheable = true;
-        return (deliver);
+        return(pass);
     }
-    if (bereq.http.Authorization && !beresp.http.Cache-Control ~ "public") {
+    if (req.http.Authorization && !beresp.http.Cache-Control ~ "public") {
         set beresp.http.X-Varnish-Action = "FETCH (pass - authorized and no public cache control)";
         call rewrite_s_maxage;
-        set beresp.uncacheable = true;
-        return (deliver);
+        return(pass);
     }
-    if (bereq.http.X-Anonymous && !beresp.http.Cache-Control) {
+    if (req.http.X-Anonymous && !beresp.http.Cache-Control) {
         set beresp.http.X-Varnish-Action = "FETCH (pass - backend not setting cache control)";
         call rewrite_s_maxage;
-        set beresp.uncacheable = true;
-        return (deliver);
+        return(pass);
     }
     call rewrite_s_maxage;
     return(deliver);
 }
-
 
 sub vcl_deliver {
 }
