@@ -9,6 +9,8 @@ vcl 4.0;
 # To change this to support multiple backends, see the vcl man pages
 # for instructions.
 
+import directors;
+
 backend default {
     .host = "${varnish-config:backend-host}";
     .port = "${varnish-config:backend-port}";
@@ -105,23 +107,23 @@ sub vcl_deliver {
 sub normalize_accept_encoding {
     if (req.http.Accept-Encoding) {
         if (req.url ~ "\.(jpe?g|png|gif|swf|pdf|gz|tgz|bz2|tbz|zip)$" || req.url ~ "/image_[^/]*$") {
-            remove req.http.Accept-Encoding;
+            unset req.http.Accept-Encoding;
         } elsif (req.http.Accept-Encoding ~ "gzip") {
             set req.http.Accept-Encoding = "gzip";
         } else {
-            remove req.http.Accept-Encoding;
+            unset req.http.Accept-Encoding;
         }
     }
 }
 
-# removes all cookies named __utm? (utma, utmb...) - tracking thing
+# unset all cookies named __utm? (utma, utmb...) - tracking thing
 
 sub clear_analytics_cookies {
     if (req.http.Cookie) {
         set req.http.Cookie = regsuball(req.http.Cookie, "(^|; ) *__utm.=[^;]+;? *", "\1"); 
 
         if (req.http.Cookie == "") {
-            remove req.http.Cookie;
+            unset req.http.Cookie;
         }
     }
 }
