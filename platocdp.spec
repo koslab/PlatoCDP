@@ -5,7 +5,7 @@
 
 Name:		platocdp
 Version:	4.3.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A Plone distribution for intranet use-cases
 
 Group:		Applications/Internet
