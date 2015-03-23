@@ -5,7 +5,7 @@
 
 Name:		platocdp
 Version:	4.3.4
-Release:	4%{?dist}
+Release:	6%{?dist}
 Summary:	A Plone distribution for intranet use-cases
 
 Group:		Applications/Internet
@@ -71,6 +71,15 @@ wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
 cat site.cfg.sample | sed 's|/var/lib/platocdp/data|`pwd`/var|g' \
     | sed 's|/var/log/platocdp/|`pwd`/var/log|' >  site.cfg 
 
+%if 0%{?rhel} >= 7
+    cp templates/varnish.vcl.in-varnish4 templates/varnish.vcl.in
+%endif
+
+%if 0%{?rhel} == 6
+    cp templates/varnish.vcl.in-varnish3 templates/varnish.vcl.in
+%endif
+
+
 cat << EOF > build.cfg
 [buildout]
 extends=deployment.cfg
@@ -109,8 +118,16 @@ cp -r %{name}-%{version}/* %{buildroot}/%{_datadir}/%{name}/template/
 cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/eggs/
 
 # clean up paths
-find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|`pwd`/bin/python|/bin/python|g" '{}' ';'
-find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|/opt/local/bin/python2.4|/bin/python|g" '{}' ';'
+
+%if 0%{?rhel} >= 7
+    find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|`pwd`/bin/python|/bin/python|g" '{}' ';'
+    find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|/opt/local/bin/python2.4|/bin/python|g" '{}' ';'
+%endif
+
+%if 0%{?rhel} == 6
+    find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|`pwd`/bin/python|/usr/bin/python|g" '{}' ';'
+    find %{buildroot}/%{_var}/lib/%{name}/eggs/ -type f -exec sed -i "s|/opt/local/bin/python2.4|/usr/bin/python|g" '{}' ';'
+%endif
 
 
 # copy tarballs
@@ -119,6 +136,15 @@ cp -r downloads/* %{buildroot}/%{_var}/cache/%{name}
 # create deployment buildout 
 rm -f %{buildroot}/%{_datadir}/%{name}/template/site.cfg
 cp -r %{buildroot}/%{_datadir}/%{name}/template/* %{buildroot}/%{_var}/www/%{name}/
+
+%if 0%{?rhel} >= 7
+    cp %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in-varnish4 %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in
+%endif
+
+%if 0%{?rhel} == 6
+    cp %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in-varnish3 %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in
+%endif
+
 cp %{buildroot}/%{_var}/www/%{name}/site.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/platocdp.cfg
 rm -f %{buildroot}/%{_var}/www/%{name}/site.cfg
 ln -s %{_sysconfdir}/%{name}/platocdp.cfg %{buildroot}/%{_var}/www/%{name}/site.cfg 
@@ -254,6 +280,9 @@ chkconfig --del platocdp-zrs >/dev/null 2>&1 || :
 userdel plone >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 23 2015 Izhar Firdaus <izhar@kagesenshi.org> 4.3.4-5
+- add support for both centos6 and centos7
+
 * Thu Dec 25 2014 Izhar Firdaus <izhar@kagesenshi.org> 4.3.4-1
 - update rebuild for plone 4.3.4
 
