@@ -14,6 +14,8 @@ shared-blob = on
 
 timezone = Asia/Kuala_Lumpur
 
+additional-eggs = 
+
 [addresses]
 
 instance1-host = 127.0.0.1
@@ -38,4 +40,5 @@ munin-secret = @@@!!!CHANGETHIS!!!@@@
 default-username = admin
 default-password = admin
 
-
+[versions]
+# additional version locks
