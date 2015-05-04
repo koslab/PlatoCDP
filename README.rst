@@ -6,8 +6,9 @@ Introduction
 -------------
 
 PlatoCDP is a system for knowledge management, data management, and data visualization platform.
-Built on top of Plone, it provides full featured CMS capabilities provided by Plone, alongside 
-additional functionalities such as
+Built on top of Plone, it provides full featured CMS capabilities provided by Plone such as its powerful 
+content type system, search engine, various integration capabilities, alongside additional functionalities 
+as listed below:
 
 * Data Visualization dashboards (TBD)
 * Data Visualization maps (TBD)
