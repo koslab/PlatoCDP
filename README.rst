@@ -106,3 +106,15 @@ you will need a CentOS machine with ``rpmdevtools`` installed. Then the package 
   rpmbuild -ta platocdp-${version}.tar.bz2
   
 **NOTE:** The RPM can only handle production build
+
+Credits
+========
+
+PlatoCDP Team
+
+* Izhar Firdaus <kagesenshi.87@gmail.com>
+* Your Name Here
+
+PlatoCDP is built on top of the awesome work done by Plone contributors worldwide. Check out the CMS here:
+
+* http://www.plone.org
