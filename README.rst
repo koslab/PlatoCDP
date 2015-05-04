@@ -2,4 +2,84 @@
 PlatoCDP : Plato Content & Data Platform
 =========================================
 
+Introduction
+-------------
 
+PlatoCDP is a system for knowledge management, data management, and data visualization platform.
+Built on top of Plone, it provides full featured CMS capabilities provided by Plone, alongside 
+additional functionalities such as
+
+* Data Visualization dashboards (TBD)
+* Data Visualization maps (TBD)
+* Data Management system ala CKAN (TBD)
+* Document Preview powered by collective.documentviewer (WIP)
+* Pluggable component to register new visualizations (TBD)
+* JWT Authentication Provider (TBD)
+* Responsive design theme powered by DevOOPS (WIP)
+
+The end goal is to have an easy to use, easy to customize, flexible platform for building Enterprise Data Portal 
+with integration with various Big Data backend technologies.
+
+Deploying development Buildout
+-------------------------------
+
+You will need these to be installed for some dependencies to build properly:
+
+* python-virtualenv 
+* python-devel 
+* python-setuptools
+* libxslt-devel 
+* libxml2-devel
+* libjpeg-turbo-devel 
+* libpng-devel 
+* zlib-devel 
+* bzip2-devel 
+* tk-devel
+* freetype-devel 
+* rubygems 
+* ghostscript 
+* openldap-devel
+
+To get documentviewer to work properly, follow the instructions to prepare docsplit on this url:
+
+  https://github.com/collective/collective.documentviewer/blob/master/CENTOS-INSTALL.rst
+
+Afterwards checkout the repository and build it using virtualenv::
+
+  git clone https://github.com/koslab/PlatoCDP.git
+  cd PlatoCDP/
+  virtualenv venv/
+  ./venv/bin/python bootstrap.py
+  ./bin/buildout -vvvv
+  
+To start the instance, run::
+
+  ./bin/instance fg
+  
+Releasing the development eggs
+-------------------------------
+
+There is a helper releaser script installed in ``./bin/`` directory, which can be used to automatically
+release all development eggs in the buildout. To use it, you'll need ``zest.releaser`` to be installed
+in your global python.
+
+As root, run::
+
+  pip install zest.releaser
+  
+Then you can run the releaser as normal user::
+
+  ./bin/releaser.py
+  
+Building the RPM
+-----------------
+
+PlatoCDP includes a RPM Specfile that can be used to build the distribution for CentOS6 and CentOS7. To build
+you will need a CentOS machine with ``rpmdevtools`` installed. Then the package can be built through::
+
+  # replace ${version} with the package version from platocdp.spec
+  git clone  https://github.com/koslab/PlatoCDP.git platocdp-${version}
+  tar cvjf platocdp-${version}.tar.bz2 platocdp-${version}
+  rpmbuild -ta platocdp-${version}.tar.bz2
+  
+  
