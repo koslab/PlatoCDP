@@ -15,8 +15,9 @@ as listed below:
 * Data Management system ala CKAN (TBD)
 * Document Preview powered by collective.documentviewer (WIP)
 * Pluggable component to register new visualizations (TBD)
-* JWT Authentication Provider (TBD)
 * Responsive design theme powered by DevOOPS (WIP)
+* JWT Authentication Provider (TBD)
+* OAuth Authentication Provider (Wishlist)
 
 The end goal is to have an easy to use, easy to customize, flexible platform for building Enterprise Data Portal 
 with integration with various Big Data backend technologies.
