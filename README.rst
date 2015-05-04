@@ -34,6 +34,7 @@ them is really appreciated.
 * Diazo Theming Engine
 * Unslider Portlet 
 * Portlet Page 
+* LDAP Integration
 * Document Viewer (WIP)
 * Solgema Fullcalendar (WIP)
 * EEA Faceted Navigation (WIP)
