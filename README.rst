@@ -18,6 +18,7 @@ as listed below:
 * Responsive design theme powered by DevOOPS (WIP)
 * JWT Authentication Provider (TBD)
 * OAuth Authentication Provider (Wishlist)
+* Integration with Hadoop ecosystem for ELT/ETL (Wishlist)
 
 The end goal is to have an easy to use, easy to customize, flexible platform for building Enterprise Data Portal 
 with integration with various Big Data backend technologies.
