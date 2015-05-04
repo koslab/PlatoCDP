@@ -3,7 +3,7 @@ PlatoCDP : Plato Content & Data Platform
 =========================================
 
 Introduction
--------------
+============
 
 PlatoCDP is a system for knowledge management, data management, and data visualization platform.
 Built on top of Plone, it provides full featured CMS capabilities provided by Plone such as its powerful 
@@ -21,8 +21,27 @@ as listed below:
 The end goal is to have an easy to use, easy to customize, flexible platform for building Enterprise Data Portal 
 with integration with various Big Data backend technologies.
 
+Bundled Add-ons
+----------------
+
+Following are the bundled add-ons in this distribution. WIP (Work-in-Progress) add-ons are still undergoing 
+integration and compatibility fixes as PlatoCDP uses JQuery 1.9.1 and Bootstrap 3.3.1. Assistance on fixing
+them is really appreciated.
+
+* Dexterity Content Types 
+* Diazo Theming Engine
+* Unslider Portlet 
+* Portlet Page 
+* Document Viewer (WIP)
+* Solgema Fullcalendar (WIP)
+* EEA Faceted Navigation (WIP)
+* Content Well Portlets (WIP)
+* Plone True Gallery (WIP)
+* Quick Upload (WIP)
+
+
 Deploying development Buildout
--------------------------------
+===============================
 
 You will need these to be installed for some dependencies to build properly:
 
@@ -58,7 +77,7 @@ To start the instance, run::
   ./bin/instance fg
   
 Releasing the development eggs
--------------------------------
+===============================
 
 There is a helper releaser script installed in ``./bin/`` directory, which can be used to automatically
 release all development eggs in the buildout. To use it, you'll need ``zest.releaser`` to be installed
@@ -73,7 +92,7 @@ Then you can run the releaser as normal user::
   ./bin/releaser.py
   
 Building the RPM
------------------
+=================
 
 PlatoCDP includes a RPM Specfile that can be used to build the distribution for CentOS6 and CentOS7. To build
 you will need a CentOS machine with ``rpmdevtools`` installed. Then the package can be built through::
@@ -83,4 +102,4 @@ you will need a CentOS machine with ``rpmdevtools`` installed. Then the package 
   tar cvjf platocdp-${version}.tar.bz2 platocdp-${version}
   rpmbuild -ta platocdp-${version}.tar.bz2
   
-  
+**NOTE:** The RPM can only handle production build
