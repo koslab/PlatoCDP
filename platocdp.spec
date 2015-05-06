@@ -1,5 +1,5 @@
 # How to build it
-# QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb platcdp.spec
+# QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb platocdp.spec
 
 %global _python_bytecompile_errors_terminate_build 0
 %global _build_development_rpm 1
@@ -84,6 +84,9 @@ cat site.cfg.sample | sed 's|/var/lib/platocdp/data|`pwd`/var|g' \
     # release eggs
     ./bin/buildout -vvvv install utils devreleaser
     ./bin/devreleaser
+    if [ $? -ne 0 ];then
+        exit 1    
+    fi
 %endif
 
 cat << EOF > build.cfg
