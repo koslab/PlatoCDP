@@ -2,10 +2,11 @@
 # QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb platcdp.spec
 
 %global _python_bytecompile_errors_terminate_build 0
+%global _build_development_rpm 0
 
 Name:		platocdp
 Version:	4.3.4
-Release:	6%{?dist}
+Release:	%(date +%%y%%m%%d)%{?dist}
 Summary:	A Plone distribution for intranet use-cases
 
 Group:		Applications/Internet
@@ -79,6 +80,11 @@ cat site.cfg.sample | sed 's|/var/lib/platocdp/data|`pwd`/var|g' \
     cp templates/varnish.vcl.in-varnish3 templates/varnish.vcl.in
 %endif
 
+%if 0%{?_build_development_rpm} == 1
+    # release eggs
+    ./bin/buildout -vvvv install devreleaser
+    ./bin/devreleaser
+%endif
 
 cat << EOF > build.cfg
 [buildout]
