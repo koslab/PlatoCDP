@@ -82,7 +82,7 @@ cat site.cfg.sample | sed 's|/var/lib/platocdp/data|`pwd`/var|g' \
 
 %if 0%{?_build_development_rpm} == 1
     # release eggs
-    ./bin/buildout -vvvv install devreleaser
+    ./bin/buildout -vvvv install utils devreleaser
     ./bin/devreleaser
 %endif
 
