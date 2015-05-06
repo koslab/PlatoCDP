@@ -2,7 +2,7 @@
 # QA_RPATHS=$[ 0x0001|0x0002 ] rpmbuild -bb platcdp.spec
 
 %global _python_bytecompile_errors_terminate_build 0
-%global _build_development_rpm 0
+%global _build_development_rpm 1
 
 Name:		platocdp
 Version:	4.3.4
