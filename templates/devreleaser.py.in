@@ -4,17 +4,19 @@ import os
 
 buildoutdir = "${buildout:directory}"
 sourcesdir = "${buildout:sources-dir}"
+outputdir = "${outputdir}"
 autorelease = """
     ${auto-release}
 """
 
 packages = [i.strip() for i in autorelease.split('\n') if i.strip()]
 
-os.system("%(releaser)s release %(buildoutdir)s %(sourcesdir)s %(packages)s" %{ 
+os.system("%(releaser)s devrelease %(buildoutdir)s %(sourcesdir)s %(outputdir)s %(packages)s" %{ 
     'releaser': os.path.join(
         buildoutdir, 'bin', 'koslab-releaser'
     ),
     'buildoutdir': buildoutdir,
     'sourcesdir': sourcesdir,
-    'packages': ' '.join(packages)
+    'packages': ' '.join(packages),
+    'outputdir': outputdir
 })
