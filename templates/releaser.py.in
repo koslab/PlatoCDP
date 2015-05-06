@@ -8,7 +8,7 @@ from ConfigParser import ConfigParser
 from StringIO import StringIO
 
 autorelease = '''${auto-release}'''
-releaser = 'fullrelease'
+releaser = '${releaser}'
 
 packages = [i.strip() for i in autorelease.split('\n') if i.strip()]
 
