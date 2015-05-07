@@ -1,5 +1,7 @@
 [config]
 
+sites = defaultsite
+
 zodb-cache-size=5000
 zserver-threads = 4
 
@@ -15,6 +17,16 @@ shared-blob = on
 timezone = Asia/Kuala_Lumpur
 
 additional-eggs = 
+
+[defaultsite]
+recipe = collective.recipe.plonesite
+site-id = platocdp
+instance = instance1
+zeoserver = zeoserver
+profiles-initial = platocdp.policy:default
+host = demo.koslab.org
+protocol = http
+port = 80
 
 [addresses]
 
