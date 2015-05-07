@@ -6,7 +6,7 @@
 
 Name:		platocdp
 Version:	4.3.4
-Release:	%(date +%%y%%m%%d)%{?dist}
+Release:	%(date +%%Y%%m%%d)%{?dist}
 Summary:	A Plone distribution for intranet use-cases
 
 Group:		Applications/Internet
@@ -18,7 +18,7 @@ BuildRequires:	git python-devel python python-virtualenv python-setuptools
 BuildRequires:  gcc gcc-c++ libxslt-devel libxml2-devel
 BuildRequires:  libjpeg-turbo-devel libpng-devel zlib-devel bzip2-devel tk-devel
 BuildRequires:  freetype-devel rubygems ghostscript wget openldap-devel
-BuildRequires:  java-1.7.0-openjdk java-1.7.0-openjdk-devel
+BuildRequires:  java-1.7.0-openjdk java-1.7.0-openjdk-devel chrpath
 Requires:       %{name}-libs
 Requires:       libreoffice-headless libreoffice-impress libreoffice-writer libreoffice-calc
 Requires:       libreoffice-draw 
@@ -71,8 +71,8 @@ Provide a ZEO Replication Server to replicate existing ZEO database
 virtualenv --no-site-packages .
 wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
 ./bin/python bootstrap.py
-cat site.cfg.sample | sed 's|/var/lib/platocdp/data|`pwd`/var|g' \
-    | sed 's|/var/log/platocdp/|`pwd`/var/log|' >  site.cfg 
+cat site.cfg.sample | sed 's|/var/lib/platocdp/data|var|g' \
+    | sed 's|/var/log/platocdp/|var/log|' >  site.cfg 
 
 %if 0%{?rhel} >= 7
     cp templates/varnish.vcl.in-varnish4 templates/varnish.vcl.in
@@ -156,6 +156,7 @@ cp -r %{buildroot}/%{_datadir}/%{name}/template/* %{buildroot}/%{_var}/www/%{nam
     cp %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in-varnish3 %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in
 %endif
 
+sed -i "s|platocdp|%{name}|s" %{buildroot}/%{_var}/www/%{name}/site.cfg.sample
 cp %{buildroot}/%{_var}/www/%{name}/site.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/platocdp.cfg
 rm -f %{buildroot}/%{_var}/www/%{name}/site.cfg
 ln -s %{_sysconfdir}/%{name}/platocdp.cfg %{buildroot}/%{_var}/www/%{name}/site.cfg 
