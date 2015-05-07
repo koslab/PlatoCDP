@@ -18,6 +18,7 @@ BuildRequires:	git python-devel python python-virtualenv python-setuptools
 BuildRequires:  gcc gcc-c++ libxslt-devel libxml2-devel
 BuildRequires:  libjpeg-turbo-devel libpng-devel zlib-devel bzip2-devel tk-devel
 BuildRequires:  freetype-devel rubygems ghostscript wget openldap-devel
+BuildRequires:  java-1.7.0-openjdk java-1.7.0-openjdk-devel
 Requires:       %{name}-libs
 Requires:       libreoffice-headless libreoffice-impress libreoffice-writer libreoffice-calc
 Requires:       libreoffice-draw 
@@ -25,6 +26,7 @@ Requires:       GraphicsMagick poppler-utils haproxy varnish
 Requires:       ghostscript
 Requires:       rubygem-docsplit = 0.7.5
 Requires:       python-virtualenv wv
+Requires:       java-1.7.0-openjdk
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
@@ -169,9 +171,9 @@ EOF
 
 # create buildscript
 
-sed 's|@@BUILDOUT_ROOT@@|%{_var}/www/%{name}|g' scripts/platocdp.sh > %{buildroot}/%{_bindir}/platocdp
+sed 's|@@BUILDOUT_ROOT@@|%{_var}/www/%{name}|g' scripts/platocdp.sh > %{buildroot}/%{_bindir}/%{name}
 
-cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp
+cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/%{name}
 #! /bin/bash
 #
 # platocdp       Bring up/down platocdp
@@ -183,16 +185,16 @@ cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp
 
 case "\$1" in 
    start)
-       %{_bindir}/platocdp start
+       %{_bindir}/%{name} start
    ;;
    stop)
-       %{_bindir}/platocdp stop
+       %{_bindir}/%{name} stop
    ;;
    restart)
-       %{_bindir}/platocdp restart
+       %{_bindir}/%{name} restart
    ;;
    status)
-       %{_bindir}/platocdp status
+       %{_bindir}/%{name} status
    ;;
 esac
 
@@ -207,9 +209,9 @@ cp %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg.sample %{buildroot}/%{_sysconfd
 rm -f %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg
 ln -s %{_sysconfdir}/%{name}/zrs.cfg %{buildroot}/%{_var}/www/%{name}-zrs/site.cfg 
 
-sed 's|@@BUILDOUT_ROOT@@|%{_var}/www/%{name}-zrs|g' scripts/platocdp-zrs.sh > %{buildroot}/%{_bindir}/platocdp-zrs
+sed 's|@@BUILDOUT_ROOT@@|%{_var}/www/%{name}-zrs|g' scripts/platocdp-zrs.sh > %{buildroot}/%{_bindir}/%{name}-zrs
 
-cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp-zrs
+cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/%{name}-zrs
 #! /bin/bash
 #
 # platocdp-zrs       Bring up/down platocdp-zrs
@@ -221,13 +223,13 @@ cat << EOF > %{buildroot}/%{_sysconfdir}/init.d/platocdp-zrs
 
 case "\$1" in 
    start)
-      %{_bindir}/platocdp-zrs start
+      %{_bindir}/%{name}-zrs start
    ;;
    stop)
-      %{_bindir}/platocdp-zrs stop
+      %{_bindir}/%{name}-zrs stop
    ;;
    status)
-       %{_bindir}/platocdp-zrs status
+       %{_bindir}/%{name}-zrs status
    ;;
 esac
 
@@ -240,8 +242,8 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %{_datadir}/%{name}/template
 %{_var}/www/%{name}
 %config %{_sysconfdir}/%{name}/platocdp.cfg
-%attr(755, root, root) %{_bindir}/platocdp
-%attr(755, root, root) %{_sysconfdir}/init.d/platocdp
+%attr(755, root, root) %{_bindir}/%{name}
+%attr(755, root, root) %{_sysconfdir}/init.d/%{name}
 
 
 %files libs
@@ -257,9 +259,9 @@ rm -f %{buildroot}/%{_sysconfdir}/%{name}/site.cfg
 %files zrs
 %defattr(-, plone, plone, -)
 %{_var}/www/%{name}-zrs
-%attr(755, root, root) %{_sysconfdir}/init.d/platocdp-zrs
+%attr(755, root, root) %{_sysconfdir}/init.d/%{name}-zrs
 %config %{_sysconfdir}/%{name}/zrs.cfg
-%attr(755, root, root) %{_bindir}/platocdp-zrs
+%attr(755, root, root) %{_bindir}/%{name}-zrs
 
 %pre
 getent group plone >/dev/null || /usr/sbin/groupadd -r plone
@@ -274,16 +276,16 @@ getent group plone >/dev/null || /usr/sbin/groupadd -r plone
 getent passwd plone >/dev/null || /usr/sbin/useradd -r -g plone -d %{_var}/lib/%{name}/ -s /bin/false plone
 
 %post
-chkconfig --add platocdp
+chkconfig --add %{name}
 
 %post zrs
-chkconfig --add platocdp-zrs
+chkconfig --add %{name}-zrs
 
 %postun 
-chkconfig --del platocdp >/dev/null 2>&1 || :
+chkconfig --del %{name} >/dev/null 2>&1 || :
 
 %postun zrs
-chkconfig --del platocdp-zrs >/dev/null 2>&1 || :
+chkconfig --del %{name}-zrs >/dev/null 2>&1 || :
 
 %postun libs 
 userdel plone >/dev/null 2>&1 || :
