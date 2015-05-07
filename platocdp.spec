@@ -64,7 +64,7 @@ Requires(postun) : chkconfig
 Provide a ZEO Replication Server to replicate existing ZEO database
 
 %prep
-%setup -q
+%setup -q -n PlatoCDP
 
 %build
 # build eggs
