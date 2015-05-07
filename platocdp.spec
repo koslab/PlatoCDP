@@ -126,7 +126,7 @@ tar xvf %{SOURCE0}
 cp -r PlatoCDP/* %{buildroot}/%{_datadir}/%{name}/template/
 
 %if 0%{?_build_development_rpm} == 1
-    cp releaseversion.cfg %{buildroot}/%{_datadir}/%{name}/template/
+    cp releaseversions.cfg %{buildroot}/%{_datadir}/%{name}/template/
 %endif
 
 # copy built eggs
