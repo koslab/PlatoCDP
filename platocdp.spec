@@ -156,7 +156,7 @@ cp -r %{buildroot}/%{_datadir}/%{name}/template/* %{buildroot}/%{_var}/www/%{nam
     cp %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in-varnish3 %{buildroot}/%{_var}/www/%{name}/templates/varnish.vcl.in
 %endif
 
-sed -i "s|platocdp|%{name}|s" %{buildroot}/%{_var}/www/%{name}/site.cfg.sample
+sed -i "s|platocdp|%{name}|g" %{buildroot}/%{_var}/www/%{name}/site.cfg.sample
 cp %{buildroot}/%{_var}/www/%{name}/site.cfg.sample %{buildroot}/%{_sysconfdir}/%{name}/platocdp.cfg
 rm -f %{buildroot}/%{_var}/www/%{name}/site.cfg
 ln -s %{_sysconfdir}/%{name}/platocdp.cfg %{buildroot}/%{_var}/www/%{name}/site.cfg 
