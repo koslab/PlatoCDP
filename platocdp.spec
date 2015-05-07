@@ -123,7 +123,7 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/template/
 
 # copy sources
 tar xvf %{SOURCE0}
-cp -r %{name}-%{version}/* %{buildroot}/%{_datadir}/%{name}/template/
+cp -r PlatoCDP/* %{buildroot}/%{_datadir}/%{name}/template/
 
 # copy built eggs
 cp -r eggs/* %{buildroot}/%{_var}/lib/%{name}/eggs/
