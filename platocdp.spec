@@ -26,7 +26,7 @@ Requires:       GraphicsMagick poppler-utils haproxy varnish
 Requires:       ghostscript
 Requires:       rubygem-docsplit = 0.7.5
 Requires:       python-virtualenv wv
-Requires:       java-1.7.0-openjdk tkinter
+Requires:       java-1.7.0-openjdk tkinter libtidy
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
