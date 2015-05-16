@@ -19,7 +19,7 @@ BuildRequires:  gcc gcc-c++ libxslt-devel libxml2-devel
 BuildRequires:  libjpeg-turbo-devel libpng-devel zlib-devel bzip2-devel tk-devel
 BuildRequires:  freetype-devel rubygems ghostscript wget openldap-devel
 BuildRequires:  java-1.7.0-openjdk java-1.7.0-openjdk-devel chrpath
-Requires:       %{name}-libs
+Requires:       %{name}-libs = %{version}
 Requires:       libreoffice-headless libreoffice-impress libreoffice-writer libreoffice-calc
 Requires:       libreoffice-draw 
 Requires:       GraphicsMagick poppler-utils haproxy varnish 
