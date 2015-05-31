@@ -72,7 +72,8 @@ virtualenv --no-site-packages .
 wget http://downloads.buildout.org/2/bootstrap.py -O bootstrap.py
 ./bin/python bootstrap.py
 cat site.cfg.sample | sed 's|/var/lib/platocdp/data|var|g' \
-    | sed 's|/var/log/platocdp/|var/log|' >  site.cfg 
+    | sed 's|/var/log/platocdp/|var/log|' \
+    | sed 's|sites = defaultsite|sites =|' >  site.cfg 
 
 %if 0%{?rhel} >= 7
     cp templates/varnish.vcl.in-varnish4 templates/varnish.vcl.in
