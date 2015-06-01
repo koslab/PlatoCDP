@@ -100,7 +100,16 @@ download-cache=downloads
 extends-cache=downloads
 EOF
 mkdir downloads/
-./bin/buildout -vvvv -U -c build.cfg
+I=1
+C=0
+while [ "x$I" != "x0" ];do
+    ./bin/buildout -vvvv -U -c build.cfg
+    I=$?
+    C=$(($C + 1))
+    if [ $C -gt 10 ];then
+        exit 1
+    fi
+done
 rm site.cfg
 
 %install
