@@ -19,7 +19,7 @@ BuildRequires:  gcc gcc-c++ libxslt-devel libxml2-devel
 BuildRequires:  libjpeg-turbo-devel libpng-devel zlib-devel bzip2-devel tk-devel
 BuildRequires:  freetype-devel rubygems ghostscript wget openldap-devel
 BuildRequires:  java-1.7.0-openjdk java-1.7.0-openjdk-devel chrpath
-Requires:       %{name}-libs = %{version}
+Requires:       %{name}-libs = %{version}-%{release}
 Requires:       libreoffice-headless libreoffice-impress libreoffice-writer libreoffice-calc
 Requires:       libreoffice-draw 
 Requires:       GraphicsMagick poppler-utils haproxy varnish 
@@ -100,16 +100,7 @@ download-cache=downloads
 extends-cache=downloads
 EOF
 mkdir downloads/
-I=1
-C=0
-while [ "x$I" != "x0" ];do
-    ./bin/buildout -vvvv -U -c build.cfg
-    I=$?
-    C=$(($C + 1))
-    if [ $C -gt 10 ];then
-        exit 1
-    fi
-done
+./bin/buildout -vvvv -U -c build.cfg
 rm site.cfg
 
 %install
