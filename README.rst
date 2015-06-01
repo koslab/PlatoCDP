@@ -101,11 +101,13 @@ PlatoCDP includes a RPM Specfile that can be used to build the distribution for 
 you will need a CentOS machine with ``rpmdevtools`` installed. Then the package can be built through::
 
   # replace ${version} with the package version from platocdp.spec
-  git clone  https://github.com/koslab/PlatoCDP.git platocdp-${version}
-  tar cvjf platocdp-${version}.tar.bz2 platocdp-${version}
+  git clone  https://github.com/koslab/PlatoCDP.git PlatoCDP
+  tar cvjf platocdp-${version}.tar.bz2 PlatoCDP
   rpmbuild -ta platocdp-${version}.tar.bz2
   
 **NOTE:** The RPM can only handle production build
+
+Latest RPM builds for CentOS6 and CentOS7 is available at http://nightly.koslab.org/nightly/
 
 Credits
 ========
