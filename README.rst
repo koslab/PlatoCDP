@@ -132,7 +132,13 @@ Start instances::
 
     platocdp-nightly start
 
+Hacking
+========
 
+To help out with development, check out the backlog of user stories and
+features at https://trello.com/b/kcTZ0FgP/platocdp
+
+Contact Izhar if you wish to gain access on the Trello board.
 
 Credits
 ========
