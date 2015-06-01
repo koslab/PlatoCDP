@@ -136,7 +136,7 @@ Hacking
 ========
 
 To help out with development, check out the backlog of user stories and
-features at https://trello.com/b/kcTZ0FgP/platocdp
+features at https://trello.com/b/kcTZ0FgP/
 
 Contact Izhar if you wish to gain access on the Trello board.
 
