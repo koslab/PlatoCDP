@@ -107,7 +107,32 @@ you will need a CentOS machine with ``rpmdevtools`` installed. Then the package 
   
 **NOTE:** The RPM can only handle production build
 
-Latest RPM builds for CentOS6 and CentOS7 is available at http://nightly.koslab.org/nightly/
+Using the (almost) nightly RPM
+-------------------------------
+
+Latest RPM builds for CentOS6 and CentOS7 are available at http://nightly.koslab.org/nightly/
+
+To setup repository, create ``/etc/yum.repos.d/koslab.repo``::
+
+    [koslab-nightly]
+    name=KOSLAB Nightly Repository
+    baseurl=http://nightly.koslab.org/nightly/EL$releasever/
+    enabled=1
+    gpgcheck=0
+
+Install packages::
+
+    yum install platocdp-nightly
+
+Initialize buildout::
+
+    platocdp-nightly rebuild
+
+Start instances::
+
+    platocdp-nightly start
+
+
 
 Credits
 ========
