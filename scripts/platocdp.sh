@@ -26,6 +26,8 @@ case "$1" in
         sudo -u plone ./bin/buildout -c buildout.cfg
    ;;
    start)
+       echo "Starting Memcached"
+       service memcached start
        echo "Starting ZEO server"
        $BUILDOUT_ROOT/bin/zeoserver start
        echo "Starting instance 1"
@@ -62,6 +64,8 @@ case "$1" in
        $BUILDOUT_ROOT/bin/instance1 stop
        echo "Stopping ZEO server"
        $BUILDOUT_ROOT/bin/zeoserver stop
+       echo "Starting Memcached"
+       service memcached start
        echo "Starting ZEO server"
        $BUILDOUT_ROOT/bin/zeoserver start
        echo "Starting instance 1"

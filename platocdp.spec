@@ -27,6 +27,7 @@ Requires:       ghostscript
 Requires:       rubygem-docsplit = 0.7.5
 Requires:       python-virtualenv wv
 Requires:       java-1.7.0-openjdk tkinter libtidy
+Requires:       memcached
 Requires(post): chkconfig
 Requires(postun) : chkconfig
 
