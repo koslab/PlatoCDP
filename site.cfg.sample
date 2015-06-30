@@ -1,6 +1,7 @@
 [config]
 
 #extra-parts = defaultsite
+extra-parts = 
 
 zodb-cache-size=5000
 zserver-threads = 4
