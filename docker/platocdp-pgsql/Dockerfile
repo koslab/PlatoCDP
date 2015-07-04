@@ -17,4 +17,5 @@ RUN chmod a+x /usr/local/bin/start.sh
 VOLUME /var/lib/pgsql/data/
 VOLUME /logs
 
+EXPOSE 5432
 CMD start.sh
