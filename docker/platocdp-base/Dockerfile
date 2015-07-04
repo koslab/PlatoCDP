@@ -21,6 +21,7 @@ RUN  yum -y install libreoffice-draw GraphicsMagick poppler-utils haproxy varnis
 RUN  yum -y install python-virtualenv wv
 RUN  yum -y install java-1.7.0-openjdk tkinter libtidy
 RUN  yum -y install postgresql-devel postgresql
+RUN  yum clean all
 
 # documentviewer dependencies
 RUN  gem install docsplit -v 0.7.5
