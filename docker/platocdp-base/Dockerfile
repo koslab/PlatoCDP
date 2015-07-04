@@ -20,7 +20,7 @@ RUN  yum -y install libreoffice-headless libreoffice-impress libreoffice-writer 
 RUN  yum -y install libreoffice-draw GraphicsMagick poppler-utils haproxy varnish ghostscript
 RUN  yum -y install python-virtualenv wv
 RUN  yum -y install java-1.7.0-openjdk tkinter libtidy
-RUN  yum -y install sudo 
+RUN  yum -y install postgresql-devel postgresql
 
 # documentviewer dependencies
 RUN  gem install docsplit -v 0.7.5
@@ -33,10 +33,13 @@ RUN mkdir -p /var/lib/platocdp/.buildout; chown -R plone:plone /var/lib/platocdp
 RUN mkdir -p /var/platocdp/{cache,eggs}; chown -R plone:plone /var/platocdp
 ADD buildout-default.cfg /var/lib/platocdp/.buildout/default.cfg
 
-# build-cache
-ADD prep.sh /tmp/prep.sh
-RUN sh /tmp/prep.sh
-
-USER plone
+# create buildoutdir
+RUN git clone https://github.com/koslab/PlatoCDP.git /opt/platocdp
+ADD http://downloads.buildout.org/2/bootstrap.py /opt/platocdp/bootstrap.py
+ADD eggcache.cfg /opt/platocdp/eggcache.cfg
 ADD build.sh /tmp/build.sh
+RUN chown -R plone:plone /opt/platocdp
+
+# build cache
+USER plone
 RUN sh /tmp/build.sh
