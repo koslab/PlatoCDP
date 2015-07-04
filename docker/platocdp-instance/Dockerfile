@@ -1,0 +1,1 @@
+FROM kagesenshi/platocdp-base
