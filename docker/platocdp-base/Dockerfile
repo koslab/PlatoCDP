@@ -38,5 +38,5 @@ ADD prep-2015060402.sh /tmp/prep.sh
 RUN sh /tmp/prep.sh
 
 USER plone
-ADD build-2015060401.sh /tmp/build.sh
+ADD build.sh /tmp/build.sh
 RUN sh /tmp/build.sh
