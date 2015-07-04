@@ -294,9 +294,6 @@ chkconfig --del %{name} >/dev/null 2>&1 || :
 %postun zrs
 chkconfig --del %{name}-zrs >/dev/null 2>&1 || :
 
-%postun libs 
-userdel plone >/dev/null 2>&1 || :
-
 %changelog
 * Mon Mar 23 2015 Izhar Firdaus <izhar@kagesenshi.org> 4.3.4-5
 - add support for both centos6 and centos7
