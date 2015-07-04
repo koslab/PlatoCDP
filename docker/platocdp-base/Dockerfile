@@ -34,7 +34,7 @@ RUN mkdir -p /var/platocdp/{cache,eggs}; chown -R plone:plone /var/platocdp
 ADD buildout-default.cfg /var/lib/platocdp/.buildout/default.cfg
 
 # build-cache
-ADD prep-2015060402.sh /tmp/prep.sh
+ADD prep.sh /tmp/prep.sh
 RUN sh /tmp/prep.sh
 
 USER plone
