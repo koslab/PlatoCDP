@@ -1,0 +1,13 @@
+haproxy:
+    image: kagesenshi/platocdp-haproxy
+    links: 
+     - instance:instance0.local
+    ports: 
+     - "8000:80"
+instance:
+    image: kagesenshi/platocdp-instance
+    links:
+     - postgres:postgres.local
+     - haproxy:haproxy.local
+postgres:
+    image: kagesenshi/platocdp-pgsql

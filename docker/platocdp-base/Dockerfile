@@ -27,7 +27,7 @@ RUN  yum clean all
 RUN  gem install docsplit -v 0.7.5
 
 # create user
-RUN  /usr/sbin/groupadd -r plone; /usr/sbin/useradd -r -g plone -d /var/lib/platocdp -s /bin/false plone
+RUN  /usr/sbin/groupadd -r plone; /usr/sbin/useradd -r -g plone -d /var/lib/platocdp -s /bin/bash plone
 RUN mkdir -p /var/lib/platocdp/.buildout; chown -R plone:plone /var/lib/platocdp
 
 # default.cfg
