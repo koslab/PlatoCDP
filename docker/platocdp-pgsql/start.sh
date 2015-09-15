@@ -4,7 +4,7 @@ DBNAME=${PLATOCDP_DB_NAME:-platocdp}
 DBUSER=${PLATOCDP_DB_USER:-platocdp}
 DBPASS=${PLATOCDP_DB_PASS:-platocdp}
 DBASYNC=${PLATOCDP_DB_ASYNC:-platocdp_async}
-
+DBENCODING=${PLATOCDP_DB_ENCODING:-UTF8}
 SUNAME=${PGSQL_SU_NAME:-pgadmin}
 SUPASS=${PGSQL_SU_PASS:-pgadmin}
 
@@ -23,7 +23,7 @@ function pg_createdb {
 chmod a+rw /logs
 if [ ! -f /var/lib/pgsql/data/pg_hba.conf ];then
     chown postgres:postgres /var/lib/pgsql/data
-    su postgres -c "initdb /var/lib/pgsql/data"
+    su postgres -c "initdb -E $DBENCODING /var/lib/pgsql/data"
     pg_createsu $SUNAME $SUPASS
     pg_createuser $DBUSER $DBPASS
     pg_createdb $DBNAME $DBUSER
